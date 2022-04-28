@@ -9,6 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlogPessoal.src.modelos;
+using Microsoft.EntityFrameworkCore;
+using BlogPessoal.src.data;
 
 namespace BlogPessoal
 {
@@ -29,14 +32,17 @@ namespace BlogPessoal
             .AddJsonFile("appsettings.json")
             .Build();
 
+            services.AddDbContext<BlogPessoalContexto>(opt => opt.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+
             services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, BlogPessoalContexto contexto)
         {
             if (env.IsDevelopment())
             {
+                contexto.Database.EnsureCreated();
                 app.UseDeveloperExceptionPage();
             }
 
