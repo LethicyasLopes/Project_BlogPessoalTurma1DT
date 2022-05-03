@@ -21,7 +21,7 @@ namespace BlogPessoal.src.modelos
         public string Foto { get; set; }
 
         [ForeignKey("fk_usuario")]
-        public UsuarioModelo Criador { get; set; }
+        public UsuarioModelo EmailCriador { get; set; }
 
         [ForeignKey("fk_tema")]
         public TemaModelo Tema { get; set; }
