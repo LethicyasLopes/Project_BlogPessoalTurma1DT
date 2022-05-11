@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BlogPessoal.src.data.dtos
+namespace BlogPessoal.src.dtos
 {
     /// <summary>
     /// <para>Resumo: Classe espelho para criar uma nova postagem</para>
@@ -10,18 +10,15 @@ namespace BlogPessoal.src.data.dtos
     /// </summary>
     public class NovaPostagemDTO
     {
-        [Required]
-        [StringLength(30)]
+        [Required, StringLength(30)]
         public string Titulo { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Required, StringLength(100)]
         public string Descricao { get; set; }
 
         public string Foto { get; set; }
 
-        [Required]
-        [StringLength(50)]
+        [Required, StringLength(30)]
         public string EmailCriador { get; set; }
 
         [Required]
@@ -38,7 +35,7 @@ namespace BlogPessoal.src.data.dtos
     }
 
     /// <summary>
-    /// <para>Resumo: Classe espelho para alterar uma nova postagem</para>
+    /// <para>Resumo: Classe espelho para alterar uma postagem</para>
     /// <para>Criado por: Lethicya Lopes</para>
     /// <para>Versão: 1.0</para>
     /// <para>Data: 29/04/2022</para>
@@ -48,12 +45,10 @@ namespace BlogPessoal.src.data.dtos
         [Required]
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(30)]
+        [Required, StringLength(30)]
         public string Titulo { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Required, StringLength(100)]
         public string Descricao { get; set; }
 
         public string Foto { get; set; }
@@ -61,8 +56,9 @@ namespace BlogPessoal.src.data.dtos
         [Required]
         public string DescricaoTema { get; set; }
 
-        public AtualizarPostagemDTO(string titulo, string descricao, string foto, string descricaoTema)
+        public AtualizarPostagemDTO(int id, string titulo, string descricao, string foto, string descricaoTema)
         {
+            Id = id;
             Titulo = titulo;
             Descricao = descricao;
             Foto = foto;

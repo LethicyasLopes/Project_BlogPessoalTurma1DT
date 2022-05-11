@@ -12,8 +12,7 @@ namespace BlogPessoal.src.modelos
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(20)]
+        [Required, StringLength(20)]
         public string Descricao { get; set; }
 
         [JsonIgnore]

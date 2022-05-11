@@ -1,5 +1,7 @@
-﻿using BlogPessoal.src.data.dtos;
+﻿using System.Threading.Tasks;
+using BlogPessoal.src.dtos;
 using BlogPessoal.src.repositorios;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogPessoal.src.controladores
@@ -13,70 +15,87 @@ namespace BlogPessoal.src.controladores
 
         private readonly IPostagem _repositorio;
 
-        #endregion Atributos
+        #endregion
+
 
         #region Construtores
+
         public PostagemControlador(IPostagem repositorio)
         {
             _repositorio = repositorio;
         }
-        #endregion Construtores
 
-        #region Metodos
+        #endregion
 
-        [HttpGet("id/{idPostagem}")]
-        public IActionResult PegarPostagemPeloId([FromRoute] int idPostagem)
-        {
-            var postagem = _repositorio.PegarPostagemPeloId(idPostagem);
-            if (postagem == null) return NotFound();
-            return Ok(postagem);
-        }
+
+        #region Métodos
 
         [HttpGet]
+        [Authorize]
         public IActionResult PegarTodasPostagens()
         {
             var lista = _repositorio.PegarTodasPostagens();
+
             if (lista.Count < 1) return NoContent();
+
             return Ok(lista);
         }
 
-        [HttpGet]
-        public IActionResult PegarPostagensPorPesquisa(
-          [FromQuery] string titulo,
-          [FromQuery] string descricaoTema,
-          [FromQuery] string nomeCriador)
+        [HttpGet("id/{idPostagem}")]
+        [Authorize]
+        public async Task<ActionResult> PegarPostagemPeloIdAsync([FromRoute] int idPostagem)
         {
-            var postagens = _repositorio.PegarPostagensPorPesquisa(titulo,
-            descricaoTema, nomeCriador);
+            var postagem = await _repositorio.PegarPostagemPeloIdAsync(idPostagem);
+
+            if (postagem == null) return NotFound();
+
+            return Ok(postagem);
+        }
+
+        [HttpGet("pesquisa")]
+        [Authorize]
+        public async Task<ActionResult> PegarPostagensPorPesquisaAsync(
+            [FromQuery] string titulo,
+            [FromQuery] string descricaoTema,
+            [FromQuery] string nomeCriador)
+        {
+            var postagens = await _repositorio.PegarPostagensPorPesquisaAsync(titulo, descricaoTema, nomeCriador);
+
             if (postagens.Count < 1) return NoContent();
+
             return Ok(postagens);
         }
 
         [HttpPost]
-        public IActionResult NovaPostagem([FromBody] NovaPostagemDTO postagem)
+        [Authorize]
+        public async Task<ActionResult> NovaPostagemAsync([FromBody] NovaPostagemDTO postagem)
         {
             if (!ModelState.IsValid) return BadRequest();
-            _repositorio.NovaPostagem(postagem);
+
+            await _repositorio.NovaPostagemAsync(postagem);
+
             return Created($"api/Postagens", postagem);
         }
 
         [HttpPut]
-        public IActionResult AtualizarPostagem([FromBody] AtualizarPostagemDTO postagem)
+        [Authorize]
+        public async Task<ActionResult> AtualizarPostagemAsync([FromBody] AtualizarPostagemDTO postagem)
         {
             if (!ModelState.IsValid) return BadRequest();
-            _repositorio.AtualizarPostagem(postagem);
+
+            await _repositorio.AtualizarPostagemAsync(postagem);
+
             return Ok(postagem);
         }
 
         [HttpDelete("deletar/{idPostagem}")]
-        public IActionResult DeletarPostagem([FromRoute] int idPostagem)
+        [Authorize]
+        public async Task<ActionResult> DeletarPostagem([FromRoute] int idPostagem)
         {
-            _repositorio.DeletarPostagem(idPostagem);
+            await _repositorio.DeletarPostagemAsync(idPostagem);
             return NoContent();
         }
 
-
-
-        #endregion Metodos
+        #endregion
     }
 }
