@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlogPessoal</name>
+    </assembly>
+    <members>
+        <member name="T:BlogPessoal.src.dtos.NovaPostagemDTO">
+            <summary>
+            <para>Resumo: Classe espelho para criar uma nova postagem</para>
+            <para>Criado por: Lethicya Lopes</para>
+            <para>Versão: 1.0</para>
+            <para>Data: 29/04/2022</para>
+            </summary>
+        </member>
+        <member name="T:BlogPessoal.src.dtos.AtualizarPostagemDTO">
+            <summary>
+            <para>Resumo: Classe espelho para alterar uma postagem</para>
+            <para>Criado por: Lethicya Lopes</para>
+            <para>Versão: 1.0</para>
+            <para>Data: 29/04/2022</para>
+            </summary>
+        </member>
+        <member name="T:BlogPessoal.src.dtos.NovoTemaDTO">
+            <summary>
+            <para>Resumo: Classe espelho para criar um novo tema</para>
+            <para>Criado por: Lethicya Lopes</para>
+            <para>Versão: 1.0</para>
+            <para>Data: 29/04/2022</para>
+            </summary>
+        </member>
+        <member name="T:BlogPessoal.src.dtos.AtualizarTemaDTO">
+            <summary>
+            <para>Resumo: Classe espelho para alterar um tema</para>
+            <para>Criado por: Lethicya Lopes</para>
+            <para>Versão: 1.0</para>
+            <para>Data: 29/04/2022</para>
+            </summary>
+        </member>
+        <member name="T:BlogPessoal.src.dtos.NovoUsuarioDTO">
+            <summary>
+            <para>Resumo: Classe espelho para criar um novo usuario</para>
+            <para>Criado por: Lethicya Lopes</para>
+            <para>Versão: 1.0</para>
+            <para>Data: 29/04/2022</para>
+            </summary>
+        </member>
+        <member name="T:BlogPessoal.src.dtos.AtualizarUsuarioDTO">
+            <summary>
+            <para>Resumo: Classe espelho para alterar um novo usuario</para>
+            <para>Criado por: Lethicya Lopes</para>
+            <para>Versão: 1.0</para>
+            <para>Data: 29/04/2022</para>
+            </summary>
+        </member>
+        <member name="T:BlogPessoal.src.repositorios.IPostagem">
+            <summary>
+            <para>Resumo: Responsavel por representar ações de CRUD de postagem</para>
+            <para>Criado por: Lethicya Lopes</para>
+            <para>Versão: 1.0</para>
+            <para>Data: 29/04/2022</para>
+            </summary>
+        </member>
+        <member name="T:BlogPessoal.src.repositorios.ITema">
+            <summary>
+            <para>Resumo: Responsavel por representar ações de CRUD de tema</para>
+            <para>Criado por: Lethicya Lopes</para>
+            <para>Versão: 1.0</para>
+            <para>Data: 29/04/2022</para>
+            </summary>
+        </member>
+        <member name="T:BlogPessoal.src.repositorios.IUsuario">
+            <summary>
+            <para>Resumo: Responsavel por representar ações de CRUD de usuario</para>
+            <para>Criado por: Lethicya Lopes</para>
+            <para>Versão: 1.0</para>
+            <para>Data: 29/04/2022</para>
+            </summary>
+        </member>
+    </members>
+</doc>

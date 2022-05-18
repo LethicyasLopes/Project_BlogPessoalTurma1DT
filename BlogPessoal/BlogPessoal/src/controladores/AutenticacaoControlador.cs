@@ -31,6 +31,24 @@ namespace BlogPessoal.src.controladores
 
         #region Métodos
 
+        /// <summary>
+        /// Pegar Autorização
+        /// </summary>
+        /// <param name="autenticacao">AutenticarDTO</param>
+        /// <returns>ActionResult</returns>
+        /// <remarks>
+        /// Exemplo de requisição:
+        ///
+        ///     POST /api/Autenticacao
+        ///     {
+        ///        "email": "lethicya@gmail.com",
+        ///        "senha": "123321"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Retorna usuário criado</response>
+        /// <response code="400">Erro na requisição</response>
+        /// <response code="401">E-mail ou senha inválido</response>
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult> Autenticar([FromBody] AutenticarDTO autenticacao)

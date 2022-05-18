@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using BlogPessoal.src.data.dtos;
+using BlogPessoal.src.dtos;
 using BlogPessoal.src.modelos;
 
 namespace BlogPessoal.src.repositorios

@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
 using BlogPessoal.src.dtos;
+using BlogPessoal.src.modelos;
 using BlogPessoal.src.repositorios;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogPessoal.src.controladores
@@ -30,6 +32,12 @@ namespace BlogPessoal.src.controladores
 
         #region Métodos
 
+        /// <summary>
+        /// Pegar todas postagens
+        /// </summary>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Lista de postagens</response>
+        /// <response code="204">Lista vazia</response>
         [HttpGet]
         [Authorize]
         public IActionResult PegarTodasPostagens()
@@ -41,6 +49,15 @@ namespace BlogPessoal.src.controladores
             return Ok(lista);
         }
 
+        /// <summary>
+        /// Pegar postagem pelo Id
+        /// </summary>
+        /// <param name="idPostagem">int</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Retorna a postagem</response>
+        /// <response code="404">Postagem não existente</response>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsuarioModelo))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("id/{idPostagem}")]
         [Authorize]
         public async Task<ActionResult> PegarPostagemPeloIdAsync([FromRoute] int idPostagem)
@@ -52,6 +69,17 @@ namespace BlogPessoal.src.controladores
             return Ok(postagem);
         }
 
+        /// <summary>
+        /// Pegar postagens por pesquisa
+        /// </summary>
+        /// <param name="titulo">string</param>
+        /// <param name="descricaoTema">string</param>
+        /// <param name="nomeCriador">string</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="200">Mostra as postagens</response>
+        /// <response code="204">Não há postagens</response>
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TemaModelo))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("pesquisa")]
         [Authorize]
         public async Task<ActionResult> PegarPostagensPorPesquisaAsync(
@@ -66,6 +94,28 @@ namespace BlogPessoal.src.controladores
             return Ok(postagens);
         }
 
+        /// <summary>
+        /// Criar nova postagem
+        /// </summary>
+        /// <param name="postagem">NovoPostagemDTO</param>
+        /// <returns>ActionResult</returns>
+        /// <remarks>
+        /// Exemplo de requisição:
+        ///
+        ///     POST /api/Usuarios
+        ///     {
+        ///        "Título": "Como fazer ...",
+        ///        "Descrição": "Descubra como fazer...",
+        ///        "Foto": "URLFOTO",
+        ///        "emailCriador": "lethicya@gmail.com",
+        ///        "descricaoTema": "Curiosidade"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Retorna postagem criada</response>
+        /// <response code="400">Erro na requisição</response>
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(PostagemModelo))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
         [Authorize]
         public async Task<ActionResult> NovaPostagemAsync([FromBody] NovaPostagemDTO postagem)
@@ -77,6 +127,28 @@ namespace BlogPessoal.src.controladores
             return Created($"api/Postagens", postagem);
         }
 
+        /// <summary>
+        /// Atualizar Postagem
+        /// </summary>
+        /// <param name="postagem">AtualizarPostagemDTO</param>
+        /// <returns>ActionResult</returns>
+        /// <remarks>
+        /// Exemplo de requisição:
+        ///
+        ///     PUT /api/Usuarios
+        ///     {
+        ///        "id": 1,
+        ///        "Título": "Como fazer chocolate quente light",    
+        ///        "Descrição": "Misture os ingredientes...",
+        ///        "Foto": "URLFOTO",
+        ///        "descricaoTema": "Culinária"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Retorna postagem atualizada</response>
+        /// <response code="400">Erro na requisição</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut]
         [Authorize]
         public async Task<ActionResult> AtualizarPostagemAsync([FromBody] AtualizarPostagemDTO postagem)
@@ -88,6 +160,13 @@ namespace BlogPessoal.src.controladores
             return Ok(postagem);
         }
 
+        /// <summary>
+        /// Deletar postagem pelo Id
+        /// </summary>
+        /// <param name="idPostagem">int</param>
+        /// <returns>ActionResult</returns>
+        /// <response code="204">Postagem deletada</response>
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpDelete("deletar/{idPostagem}")]
         [Authorize]
         public async Task<ActionResult> DeletarPostagem([FromRoute] int idPostagem)
