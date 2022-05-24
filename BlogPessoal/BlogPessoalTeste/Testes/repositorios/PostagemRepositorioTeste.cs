@@ -33,11 +33,11 @@ namespace BlogPessoalTeste.Testes.repositorios
 
             // GIVEN - Dado que registro 2 usuarios
             await _repositorioU.NovoUsuarioAsync(
-                new NovoUsuarioDTO("Daniel Lopes", "daniel@email.com", "134652", "URLDAFOTO", TipoUsuario.NORMAL)
+                new NovoUsuarioDTO("Lethicya Lopes", "lethicya@email.com", "134652", "URLDAFOTO", TipoUsuario.NORMAL)
             );
 
             await _repositorioU.NovoUsuarioAsync(
-                new NovoUsuarioDTO("Henrique Lopes", "henrique@email.com", "134652", "URLDAFOTO", TipoUsuario.NORMAL)
+                new NovoUsuarioDTO("Daniel Lopes", "daniel@email.com", "134652", "URLDAFOTO", TipoUsuario.NORMAL)
             );
 
             // AND - E que registro 2 temas
@@ -50,7 +50,7 @@ namespace BlogPessoalTeste.Testes.repositorios
                     "C# é muito massa",
                     "É uma linguagem muito utilizada no mundo",
                     "URLDAFOTO",
-                    "daniel@email.com",
+                    "lethicya@email.com",
                     "C#"
                 )
             );
@@ -59,7 +59,7 @@ namespace BlogPessoalTeste.Testes.repositorios
                     "C# pode ser usado com Testes",
                     "O teste unitário é importante para o desenvolvimento",
                     "URLDAFOTO",
-                    "henrique@email.com",
+                    "daniel@email.com",
                     "C#"
                 )
             );
@@ -68,14 +68,16 @@ namespace BlogPessoalTeste.Testes.repositorios
                     "Java é muito massa",
                     "Java também é muito utilizada no mundo",
                     "URLDAFOTO",
-                    "daniel@email.com",
+                    "lethicya@email.com",
                     "Java"
                 )
             );
 
             // WHEN - Quando eu busco todas as postagens
+            var postagens = await _repositorioP.PegarTodasPostagensAsync();
+
             // THEN - Eu tenho 3 postagens
-            Assert.AreEqual(3, _repositorioP.PegarTodasPostagens().Count());
+            Assert.AreEqual(3, postagens.Count);
         }
 
         [TestMethod]
@@ -93,7 +95,7 @@ namespace BlogPessoalTeste.Testes.repositorios
 
             // GIVEN - Dado que registro 1 usuarios
             await _repositorioU.NovoUsuarioAsync(
-                new NovoUsuarioDTO("Daniel Lopes", "daniel@email.com", "134652", "URLDAFOTO", TipoUsuario.NORMAL)
+                new NovoUsuarioDTO("Guilherme Lopes", "guilherme@email.com", "134652", "URLDAFOTO", TipoUsuario.NORMAL)
             );
 
             // AND - E que registro 1 tema
@@ -106,7 +108,7 @@ namespace BlogPessoalTeste.Testes.repositorios
                     "COBOL é muito massa",
                     "É uma linguagem muito utilizada no mundo",
                     "URLDAFOTO",
-                    "daniel@email.com",
+                    "guilherme@email.com",
                     "COBOL"
                 )
             );
@@ -146,11 +148,11 @@ namespace BlogPessoalTeste.Testes.repositorios
 
             // GIVEN - Dado que registro 2 usuarios
             await _repositorioU.NovoUsuarioAsync(
-                new NovoUsuarioDTO("Daniel Lopes", "daniel@email.com", "134652", "URLDAFOTO", TipoUsuario.NORMAL)
+                new NovoUsuarioDTO("Cynthia Freitas", "cynthia@email.com", "134652", "URLDAFOTO", TipoUsuario.NORMAL)
             );
 
             await _repositorioU.NovoUsuarioAsync(
-                new NovoUsuarioDTO("Emilly Lopes", "emilly@email.com", "134652", "URLDAFOTO", TipoUsuario.NORMAL)
+                new NovoUsuarioDTO("Vinicius Cassullo", "vinicius@email.com", "134652", "URLDAFOTO", TipoUsuario.NORMAL)
             );
 
             // AND - E que registro 2 temas
@@ -163,7 +165,7 @@ namespace BlogPessoalTeste.Testes.repositorios
                     "C# é muito massa",
                     "É uma linguagem muito utilizada no mundo",
                     "URLDAFOTO",
-                    "daniel@email.com",
+                    "cynthia@email.com",
                     "C#"
                 )
             );
@@ -172,7 +174,7 @@ namespace BlogPessoalTeste.Testes.repositorios
                     "C# pode ser usado com Testes",
                     "O teste unitário é importante para o desenvolvimento",
                     "URLDAFOTO",
-                    "emilly@email.com",
+                    "vinicius@email.com",
                     "C#"
                 )
             );
@@ -181,14 +183,14 @@ namespace BlogPessoalTeste.Testes.repositorios
                     "Java é muito massa",
                     "Java também é muito utilizada no mundo",
                     "URLDAFOTO",
-                    "daniel@email.com",
+                    "cynthia@email.com",
                     "Java"
                 )
             );
 
             var postagensTeste1 = await _repositorioP.PegarPostagensPorPesquisaAsync("massa", null, null);
             var postagensTeste2 = await _repositorioP.PegarPostagensPorPesquisaAsync(null, "C#", null);
-            var postagensTeste3 = await _repositorioP.PegarPostagensPorPesquisaAsync(null, null, "Gustavo Boaz");
+            var postagensTeste3 = await _repositorioP.PegarPostagensPorPesquisaAsync(null, null, "cynthia@email.com");
 
             // WHEN - Quando eu busco as postagen
             // THEN - Eu tenho as postagens que correspondem aos criterios

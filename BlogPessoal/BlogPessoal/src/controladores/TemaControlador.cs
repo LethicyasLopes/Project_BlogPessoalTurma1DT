@@ -33,18 +33,18 @@ namespace BlogPessoal.src.controladores
         #region Métodos
 
         /// <summary>
-        /// Pegar todos Temas
+        /// Pegar todos temas
         /// </summary>
         /// <returns>ActionResult</returns>
         /// <response code="200">Lista de temas</response>
-        /// <response code="204">Lista vazia</response>
+        /// <response code="204">Lista vasia</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet]
         [Authorize]
-        public IActionResult PegarTodosTemas()
+        public async Task<ActionResult> PegarTodosTemasAsync()
         {
-            var lista = _repositorio.PegarTodosTemas();
+            var lista = await _repositorio.PegarTodosTemasAsync();
 
             if (lista.Count < 1) return NoContent();
 
@@ -52,12 +52,12 @@ namespace BlogPessoal.src.controladores
         }
 
         /// <summary>
-        /// Pegar Tema pelo Id
+        /// Pegar tema pelo Id
         /// </summary>
         /// <param name="idTema">int</param>
         /// <returns>ActionResult</returns>
-        /// <response code="200">Retorna o Tema</response>
-        /// <response code="404">Tema não existe</response>
+        /// <response code="200">Retorna o tema</response>
+        /// <response code="404">Tema não existente</response>
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TemaModelo))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("id/{idTema}")]
@@ -72,12 +72,12 @@ namespace BlogPessoal.src.controladores
         }
 
         /// <summary>
-        /// Pegar Tema pela Descrição
+        /// Pegar tema pela Descrição
         /// </summary>
         /// <param name="descricaoTema">string</param>
         /// <returns>ActionResult</returns>
-        /// <response code="200">Retorna o tema</response>
-        /// <response code="404">Descrição não existente</response>
+        /// <response code="200">Retorna temas</response>
+        /// <response code="204">Descrição não existe</response>
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TemaModelo))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("pesquisa")]
@@ -92,7 +92,7 @@ namespace BlogPessoal.src.controladores
         }
 
         /// <summary>
-        /// Criar novo tema
+        /// Criar novo Tema
         /// </summary>
         /// <param name="tema">NovoTemaDTO</param>
         /// <returns>ActionResult</returns>
@@ -101,7 +101,7 @@ namespace BlogPessoal.src.controladores
         ///
         ///     POST /api/Temas
         ///     {
-        ///        "Descrição": "Visual Studio",
+        ///        "descricao": "CSHARP",
         ///     }
         ///
         /// </remarks>
@@ -131,7 +131,7 @@ namespace BlogPessoal.src.controladores
         ///     PUT /api/Temas
         ///     {
         ///        "id": 1,    
-        ///        "Descrição": "Visual Studio",
+        ///        "descricao": "CSHARP"
         ///     }
         ///
         /// </remarks>
@@ -151,7 +151,7 @@ namespace BlogPessoal.src.controladores
         }
 
         /// <summary>
-        /// Deletar Tema pelo Id
+        /// Deletar tema pelo Id
         /// </summary>
         /// <param name="idTema">int</param>
         /// <returns>ActionResult</returns>

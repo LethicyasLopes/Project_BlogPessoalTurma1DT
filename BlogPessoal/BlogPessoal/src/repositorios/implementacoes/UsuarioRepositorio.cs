@@ -12,9 +12,8 @@ namespace BlogPessoal.src.repositorios.implementacoes
     /// <para>Resumo: Classe responsavel por implementar IUsuario</para>
     /// <para>Criado por: Lethicya Lopes</para>
     /// <para>Versão: 1.0</para>
-    /// <para>Data: 13/05/2022</para>
+    /// <para>Data: 12/05/2022</para>
     /// </summary>
-    
     public class UsuarioRepositorio : IUsuario
     {
         #region Atributos
@@ -78,7 +77,7 @@ namespace BlogPessoal.src.repositorios.implementacoes
                 Nome = usuario.Nome,
                 Senha = usuario.Senha,
                 Foto = usuario.Foto,
-                Tipo = usuario.Tipo 
+                Tipo = usuario.Tipo
             });
 
             await _contexto.SaveChangesAsync();

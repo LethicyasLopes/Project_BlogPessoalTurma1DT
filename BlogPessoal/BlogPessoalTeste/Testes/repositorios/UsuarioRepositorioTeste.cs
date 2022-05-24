@@ -29,19 +29,19 @@ namespace BlogPessoalTest.Testes.repositorios
 
             //GIVEN - Dado que registro 4 usuarios no banco
             await _repositorio.NovoUsuarioAsync(
-                new NovoUsuarioDTO("Milton Tomé", "milton@email.com", "134652", "URLFOTO", TipoUsuario.NORMAL)
-            );
-
-            await _repositorio.NovoUsuarioAsync(
-                new NovoUsuarioDTO("Maria Cleres", "mcleres@email.com", "134652", "URLFOTO", TipoUsuario.NORMAL)
-            );
-
-            await _repositorio.NovoUsuarioAsync(
-                new NovoUsuarioDTO("Cynthia Freitas", "cynthia@email.com", "134652", "URLFOTO", TipoUsuario.NORMAL)
-            );
-
-            await _repositorio.NovoUsuarioAsync(
                 new NovoUsuarioDTO("Lethicya Lopes", "lethicya@email.com", "134652", "URLFOTO", TipoUsuario.NORMAL)
+            );
+
+            await _repositorio.NovoUsuarioAsync(
+                new NovoUsuarioDTO("Daniel Lopes", "daniel@email.com", "134652", "URLFOTO", TipoUsuario.NORMAL)
+            );
+
+            await _repositorio.NovoUsuarioAsync(
+                new NovoUsuarioDTO("Guilherme Lopes", "guilherme@email.com", "134652", "URLFOTO", TipoUsuario.NORMAL)
+            );
+
+            await _repositorio.NovoUsuarioAsync(
+                new NovoUsuarioDTO("Nino Lopes", "nino@email.com", "134652", "URLFOTO", TipoUsuario.NORMAL)
             );
 
             //WHEN - Quando pesquiso lista total            
@@ -62,11 +62,11 @@ namespace BlogPessoalTest.Testes.repositorios
 
             //GIVEN - Dado que registro um usuario no banco
             await _repositorio.NovoUsuarioAsync(
-                new NovoUsuarioDTO("Vinicius Cassullo", "vinicius@email.com", "134652", "URLFOTO", TipoUsuario.NORMAL)
+                new NovoUsuarioDTO("Cynthia Freitas", "cynthia@email.com", "134652", "URLFOTO", TipoUsuario.NORMAL)
             );
 
             //WHEN - Quando pesquiso pelo email deste usuario
-            var usuario = await _repositorio.PegarUsuarioPeloEmailAsync("zenildo@email.com");
+            var usuario = await _repositorio.PegarUsuarioPeloEmailAsync("cynthia@email.com");
 
             //THEN - Então obtenho um usuario
             Assert.IsNotNull(usuario);
@@ -85,7 +85,7 @@ namespace BlogPessoalTest.Testes.repositorios
 
             //GIVEN - Dado que registro um usuario no banco
             await _repositorio.NovoUsuarioAsync(
-                new NovoUsuarioDTO("Guilherme Lopes", "guilherme@email.com", "134652", "URLFOTO", TipoUsuario.NORMAL)
+                new NovoUsuarioDTO("Maria Cleres", "mcleres@email.com", "134652", "URLFOTO", TipoUsuario.NORMAL)
             );
 
             //WHEN - Quando pesquiso pelo id 1
@@ -94,7 +94,7 @@ namespace BlogPessoalTest.Testes.repositorios
             //THEN - Então, deve me retornar um elemento não nulo
             Assert.IsNotNull(usuario);
             //THEN - Então, o elemento deve ser Neusa Boaz
-            Assert.AreEqual("Guilherme Lopes", usuario.Nome);
+            Assert.AreEqual("Maria Cleres", usuario.Nome);
         }
 
         [TestMethod]
@@ -110,19 +110,19 @@ namespace BlogPessoalTest.Testes.repositorios
 
             //GIVEN - Dado que registro um usuario no banco
             await _repositorio.NovoUsuarioAsync(
-                new NovoUsuarioDTO("Emilly Lopes", "emilly@email.com", "134652", "URLFOTO", TipoUsuario.NORMAL)
+                new NovoUsuarioDTO("Milton Tomé", "milton@email.com", "134652", "URLFOTO", TipoUsuario.NORMAL)
             );
 
             //WHEN - Quando atualizamos o usuario
             await _repositorio.AtualizarUsuarioAsync(
-                new AtualizarUsuarioDTO(1, "Emilly Lopes", "123456", "URLFOTONOVA")
+                new AtualizarUsuarioDTO(1, "Milton Tomé", "123456", "URLFOTONOVA")
             );
 
             //THEN - Então, quando validamos pesquisa deve retornar nome Estefânia Moura
-            var antigo = await _repositorio.PegarUsuarioPeloEmailAsync("estefania@email.com");
+            var antigo = await _repositorio.PegarUsuarioPeloEmailAsync("milton@email.com");
 
             Assert.AreEqual(
-                "Emilly Lopes",
+                "Milton Tomé",
                 _contexto.Usuarios.FirstOrDefault(u => u.Id == antigo.Id).Nome
             );
 

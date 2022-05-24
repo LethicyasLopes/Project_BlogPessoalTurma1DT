@@ -9,9 +9,9 @@ namespace BlogPessoal.src.modelos
     /// <para>Resumo: Classe responsavel por representar tb_temas no banco.</para>
     /// <para>Criado por: Lethicya Lopes</para>
     /// <para>Versão: 1.0</para>
-    /// <para>Data: 13/05/2022</para>
+    /// <para>Data: 12/05/2022</para>
     /// </summary>
-
+    
     [Table("tb_temas")]
     public class TemaModelo
     {

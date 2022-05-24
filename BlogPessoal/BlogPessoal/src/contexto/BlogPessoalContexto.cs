@@ -7,7 +7,7 @@ namespace BlogPessoal.src.data
     /// <para>Resumo: Classe contexto, responsavel por carregar contexto e definir DbSets</para>
     /// <para>Criado por: Lethicya Lopes</para>
     /// <para>Versão: 1.0</para>
-    /// <para>Data: 13/05/2022</para>
+    /// <para>Data: 12/05/2022</para>
     /// </summary>
     public class BlogPessoalContexto : DbContext
     {
@@ -17,6 +17,7 @@ namespace BlogPessoal.src.data
 
         public BlogPessoalContexto(DbContextOptions<BlogPessoalContexto> opt) : base(opt)
         {
+
         }
     }
 }

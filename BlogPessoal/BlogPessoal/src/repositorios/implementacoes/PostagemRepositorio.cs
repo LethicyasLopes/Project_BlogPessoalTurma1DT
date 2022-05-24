@@ -8,6 +8,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlogPessoal.src.repositorios.implementacoes
 {
+    /// <summary>
+    /// <para>Resumo: Classe responsavel por implementar IPostagem</para>
+    /// <para>Criado por: Lethicya Lopes</para>
+    /// <para>Versão: 1.0</para>
+    /// <para>Data: 12/05/2022</para>
+    /// </summary>
     public class PostagemRepositorio : IPostagem
     {
         #region Atributos
@@ -30,21 +36,21 @@ namespace BlogPessoal.src.repositorios.implementacoes
         #region Métodos
 
         /// <summary>
-        /// <para>Resumo: Método assíncrono para pegar todas as postagens</para>
+        /// <para>Resumo: Método assíncrono para pegar todas postagens</para>
         /// </summary>
-        /// <return>Lista todas as postagens></return>
-        public List<PostagemModelo> PegarTodasPostagens()
+        /// <return>Lista PostagemModelo></return>
+        public async Task<List<PostagemModelo>> PegarTodasPostagensAsync()
         {
-            return _contexto.Postagens
+            return await _contexto.Postagens
                 .Include(p => p.Criador)
                 .Include(p => p.Tema)
-                .ToList();
+                .ToListAsync();
         }
 
         /// <summary>
-        /// <para>Resumo> Método assíncrono para pegar uma postagem pelo Id</para>
+        /// <para>Resumo: Método assíncrono para pegar uma postagem pelo Id</para>
         /// </summary>
-        /// <param nome="id">Id da postagem</param>
+        /// <param name="id">Id da postagem</param>
         /// <return>PostagemModelo</return>
         public async Task<PostagemModelo> PegarPostagemPeloIdAsync(int id)
         {
@@ -57,25 +63,25 @@ namespace BlogPessoal.src.repositorios.implementacoes
         /// <summary>
         /// <para>Resumo: Método assíncrono para pegar pegar postagens por pesquisa</para>
         /// </summary>
-        /// <param name="titulo">Titulo da postagem</param>
+        /// <param name="tituloPostagem">Titulo da postagem</param>
         /// <param name="descricaoTema">Descrição do tema</param>
-        /// <param name="nomeCriador">Nome do criador</param>
+        /// <param name="emailCriador">Nome do criador</param>
         /// <return>List PostagemModelo</return>
         public async Task<List<PostagemModelo>> PegarPostagensPorPesquisaAsync(
-            string titulo,
+            string tituloPostagem,
             string descricaoTema,
-            string nomeCriador)
+            string emailCriador)
         {
-            switch (titulo, descricaoTema, nomeCriador)
+            switch (tituloPostagem, descricaoTema, emailCriador)
             {
                 case (null, null, null):
-                    return PegarTodasPostagens();
+                    return await PegarTodasPostagensAsync();
 
                 case (null, null, _):
                     return await _contexto.Postagens
                         .Include(p => p.Tema)
                         .Include(p => p.Criador)
-                        .Where(p => p.Criador.Nome.Contains(nomeCriador))
+                        .Where(p => p.Criador.Email.Contains(emailCriador))
                         .ToListAsync();
 
                 case (null, _, null):
@@ -89,7 +95,7 @@ namespace BlogPessoal.src.repositorios.implementacoes
                     return await _contexto.Postagens
                         .Include(p => p.Tema)
                         .Include(p => p.Criador)
-                        .Where(p => p.Titulo.Contains(titulo))
+                        .Where(p => p.Titulo.Contains(tituloPostagem))
                         .ToListAsync();
 
                 case (_, _, null):
@@ -97,7 +103,7 @@ namespace BlogPessoal.src.repositorios.implementacoes
                         .Include(p => p.Tema)
                         .Include(p => p.Criador)
                         .Where(p =>
-                            p.Titulo.Contains(titulo) &
+                            p.Titulo.Contains(tituloPostagem) &
                             p.Tema.Descricao.Contains(descricaoTema))
                         .ToListAsync();
 
@@ -107,7 +113,7 @@ namespace BlogPessoal.src.repositorios.implementacoes
                         .Include(p => p.Criador)
                         .Where(p =>
                             p.Tema.Descricao.Contains(descricaoTema) &
-                            p.Criador.Nome.Contains(nomeCriador))
+                            p.Criador.Nome.Contains(emailCriador))
                         .ToListAsync();
 
                 case (_, null, _):
@@ -115,8 +121,8 @@ namespace BlogPessoal.src.repositorios.implementacoes
                         .Include(p => p.Tema)
                         .Include(p => p.Criador)
                         .Where(p =>
-                            p.Titulo.Contains(titulo) &
-                            p.Criador.Nome.Contains(nomeCriador))
+                            p.Titulo.Contains(tituloPostagem) &
+                            p.Criador.Email.Contains(emailCriador))
                         .ToListAsync();
 
                 case (_, _, _):
@@ -124,9 +130,9 @@ namespace BlogPessoal.src.repositorios.implementacoes
                         .Include(p => p.Tema)
                         .Include(p => p.Criador)
                         .Where(p =>
-                            p.Titulo.Contains(titulo) |
+                            p.Titulo.Contains(tituloPostagem) |
                             p.Tema.Descricao.Contains(descricaoTema) |
-                            p.Criador.Nome.Contains(nomeCriador))
+                            p.Criador.Email.Contains(emailCriador))
                         .ToListAsync();
             }
         }

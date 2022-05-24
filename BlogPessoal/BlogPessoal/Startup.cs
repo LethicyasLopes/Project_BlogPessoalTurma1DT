@@ -40,16 +40,14 @@ namespace BlogPessoal
             if (Configuration["Enviroment:Start"] == "PROD")
             {
                 services.AddEntityFrameworkNpgsql()
-                .AddDbContext<BlogPessoalContexto>(
-                opt =>
-                opt.UseNpgsql(Configuration["ConnectionStringsProd:DefaultConnection"]));
+                    .AddDbContext<BlogPessoalContexto>(
+                    opt => opt.UseNpgsql(Configuration["ConnectionStringsProd:DefaultConnection"]));
             }
             else
             {
                 services.AddDbContext<BlogPessoalContexto>(
-                opt =>
-                opt.UseSqlServer(Configuration["ConnectionStringsDev:DefaultConnection"]));
-            };
+                    opt => opt.UseSqlServer(Configuration["ConnectionStringsDev:DefaultConnection"]));
+            }
 
             // Configuração Repositorios
             services.AddScoped<IUsuario, UsuarioRepositorio>();
@@ -116,6 +114,7 @@ namespace BlogPessoal
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 s.IncludeXmlComments(xmlPath);
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -127,7 +126,10 @@ namespace BlogPessoal
                 contexto.Database.EnsureCreated();
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BLOG_PESSOAL_ v1"));
+                app.UseSwaggerUI(c => {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "BlogPessoal v1");
+                    c.RoutePrefix = string.Empty;
+                });
             }
 
             // Ambiente de produção
@@ -137,7 +139,11 @@ namespace BlogPessoal
             app.UseSwaggerUI(c => {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "BlogPessoal v1");
                 c.RoutePrefix = string.Empty;
-            }); 
+            });
+
+            // Ambiente de produção
+            // Rotas
+            app.UseRouting();
 
             app.UseCors(c => c
                 .AllowAnyOrigin()

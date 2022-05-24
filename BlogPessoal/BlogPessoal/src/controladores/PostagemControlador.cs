@@ -37,12 +37,12 @@ namespace BlogPessoal.src.controladores
         /// </summary>
         /// <returns>ActionResult</returns>
         /// <response code="200">Lista de postagens</response>
-        /// <response code="204">Lista vazia</response>
+        /// <response code="204">Lista vasia</response>
         [HttpGet]
         [Authorize]
-        public IActionResult PegarTodasPostagens()
+        public async Task<ActionResult> PegarTodasPostagensAsync()
         {
-            var lista = _repositorio.PegarTodasPostagens();
+            var lista = await _repositorio.PegarTodasPostagensAsync();
 
             if (lista.Count < 1) return NoContent();
 
@@ -56,8 +56,6 @@ namespace BlogPessoal.src.controladores
         /// <returns>ActionResult</returns>
         /// <response code="200">Retorna a postagem</response>
         /// <response code="404">Postagem não existente</response>
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsuarioModelo))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("id/{idPostagem}")]
         [Authorize]
         public async Task<ActionResult> PegarPostagemPeloIdAsync([FromRoute] int idPostagem)
@@ -70,24 +68,24 @@ namespace BlogPessoal.src.controladores
         }
 
         /// <summary>
-        /// Pegar postagens por pesquisa
+        /// Pegar postagens por Pesquisa
         /// </summary>
-        /// <param name="titulo">string</param>
+        /// <param name="tituloPostagem">string</param>
         /// <param name="descricaoTema">string</param>
-        /// <param name="nomeCriador">string</param>
+        /// <param name="emailCriador">string</param>
         /// <returns>ActionResult</returns>
-        /// <response code="200">Mostra as postagens</response>
-        /// <response code="204">Não há postagens</response>
+        /// <response code="200">Retorna postagens</response>
+        /// <response code="204">Postagns não existe pra essa pesquisa</response>
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TemaModelo))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("pesquisa")]
         [Authorize]
         public async Task<ActionResult> PegarPostagensPorPesquisaAsync(
-            [FromQuery] string titulo,
+            [FromQuery] string tituloPostagem,
             [FromQuery] string descricaoTema,
-            [FromQuery] string nomeCriador)
+            [FromQuery] string emailCriador)
         {
-            var postagens = await _repositorio.PegarPostagensPorPesquisaAsync(titulo, descricaoTema, nomeCriador);
+            var postagens = await _repositorio.PegarPostagensPorPesquisaAsync(tituloPostagem, descricaoTema, emailCriador);
 
             if (postagens.Count < 1) return NoContent();
 
@@ -95,20 +93,20 @@ namespace BlogPessoal.src.controladores
         }
 
         /// <summary>
-        /// Criar nova postagem
+        /// Criar nova Postagem
         /// </summary>
-        /// <param name="postagem">NovoPostagemDTO</param>
+        /// <param name="postagem">NovaPostagemDTO</param>
         /// <returns>ActionResult</returns>
         /// <remarks>
         /// Exemplo de requisição:
         ///
-        ///     POST /api/Usuarios
-        ///     {
-        ///        "Título": "Como fazer ...",
-        ///        "Descrição": "Descubra como fazer...",
-        ///        "Foto": "URLFOTO",
-        ///        "emailCriador": "lethicya@gmail.com",
-        ///        "descricaoTema": "Curiosidade"
+        ///     POST /api/Postagens
+        ///     {  
+        ///        "titulo": "Dotnet Core mudando o mundo", 
+        ///        "descricao": "Uma ferramenta muito boa para desenvolver aplicações web",
+        ///        "foto": "URLDAIMAGEM",
+        ///        "emailCriador": "gustavo@domain.com",
+        ///        "descricaoTema": "CSHARP"
         ///     }
         ///
         /// </remarks>
@@ -128,26 +126,26 @@ namespace BlogPessoal.src.controladores
         }
 
         /// <summary>
-        /// Atualizar Postagem
+        /// Atualizar Tema
         /// </summary>
         /// <param name="postagem">AtualizarPostagemDTO</param>
         /// <returns>ActionResult</returns>
         /// <remarks>
         /// Exemplo de requisição:
         ///
-        ///     PUT /api/Usuarios
+        ///     PUT /api/Postagens
         ///     {
-        ///        "id": 1,
-        ///        "Título": "Como fazer chocolate quente light",    
-        ///        "Descrição": "Misture os ingredientes...",
-        ///        "Foto": "URLFOTO",
-        ///        "descricaoTema": "Culinária"
+        ///        "id": 1,   
+        ///        "titulo": "Dotnet Core mudando o mundo", 
+        ///        "descricao": "Uma ferramenta muito boa para desenvolver aplicações web",
+        ///        "foto": "URLDAIMAGEM",
+        ///        "descricaoTema": "CSHARP"
         ///     }
         ///
         /// </remarks>
         /// <response code="200">Retorna postagem atualizada</response>
         /// <response code="400">Erro na requisição</response>
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PostagemModelo))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut]
         [Authorize]

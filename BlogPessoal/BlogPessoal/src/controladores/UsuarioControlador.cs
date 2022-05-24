@@ -108,7 +108,7 @@ namespace BlogPessoal.src.controladores
         ///     POST /api/Usuarios
         ///     {
         ///        "nome": "Lethicya Lopes",
-        ///        "email": "lethicya@domain.com",
+        ///        "email": "gustavo@domain.com",
         ///        "senha": "134652",
         ///        "foto": "URLFOTO",
         ///        "tipo": "NORMAL"
@@ -149,7 +149,7 @@ namespace BlogPessoal.src.controladores
         ///     PUT /api/Usuarios
         ///     {
         ///        "id": 1,    
-        ///        "nome": "Lethicya Lopes",
+        ///        "nome": "Daniel Lopes",
         ///        "senha": "134652",
         ///        "foto": "URLFOTO"
         ///     }
